@@ -7,15 +7,12 @@ import docx.shared
 from ai_service import analyze_submission, generate_report
 from config import CATEGORIES, MODELS
 
-def process_submission(content: str, model_name: str, api_key: str, filename: str = ""):
+def process_submission(content: str, model_name: str, filename: str = ""):
     if not content.strip():
         return "请输入投稿内容", None, None, "❌ 请输入投稿内容", None, None
     
-    if not api_key.strip():
-        return "请输入API Key", None, None, "❌ 请输入API Key", None, None
-    
     try:
-        analysis = analyze_submission(content, model_name, api_key)
+        analysis = analyze_submission(content, model_name)
         report = generate_report(content, analysis)
         txt_file = export_txt(report, filename)
         word_file = export_word(report, filename)
@@ -89,11 +86,6 @@ with gr.Blocks(title="AI辅助投稿分析工具", theme=gr.themes.Soft()) as de
                 choices=list(MODELS.keys()),
                 value="DeepSeek"
             )
-            api_input = gr.Textbox(
-                label="API Key",
-                type="password",
-                placeholder="输入对应模型的API Key"
-            )
             content_input = gr.Textbox(
                 label="投稿内容",
                 lines=10,
@@ -118,7 +110,7 @@ with gr.Blocks(title="AI辅助投稿分析工具", theme=gr.themes.Soft()) as de
     
     analyze_btn.click(
         fn=process_submission,
-        inputs=[content_input, model_select, api_input, filename_input],
+        inputs=[content_input, model_select, filename_input],
         outputs=[report_output, hidden_report, hidden_analysis, status_output, txt_btn, word_btn],
         show_progress="full"
     )
@@ -126,16 +118,16 @@ with gr.Blocks(title="AI辅助投稿分析工具", theme=gr.themes.Soft()) as de
     gr.Markdown("""
     ---
     **使用说明**：
-    1. 选择AI模型并输入对应的API Key
+    1. 选择AI模型
     2. 粘贴投稿内容到文本框
     3. 点击"开始分析"获取报告
     4. 可导出为TXT或Word格式
     
-    **API Key获取地址**：
-    - DeepSeek: https://platform.deepseek.com/
-    - 通义千问: https://dashscope.console.aliyun.com/
-    - 智谱GLM: https://open.bigmodel.cn/
-    - Kimi: https://platform.moonshot.cn/
+    **配置方式**：通过环境变量设置API Key
+    - DeepSeek: DEEPSEEK_API_KEY
+    - 通义千问: QWEN_API_KEY
+    - 智谱GLM: GLM_API_KEY
+    - Kimi: MOONSHOT_API_KEY
     """)
 
 if __name__ == "__main__":

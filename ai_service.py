@@ -2,8 +2,11 @@ import json
 from openai import OpenAI
 from config import MODELS, CATEGORIES
 
-def analyze_submission(content: str, model_name: str, api_key: str) -> dict:
+def analyze_submission(content: str, model_name: str) -> dict:
     model_config = MODELS[model_name]
+    api_key = model_config.get("api_key", "")
+    if not api_key:
+        raise ValueError(f"未配置 {model_name} 的 API Key，请在环境变量中设置")
     client = OpenAI(api_key=api_key, base_url=model_config["base_url"])
     
     prompt = f"""你是一个社区投稿分析助手。请分析以下投稿内容，完成以下任务：
