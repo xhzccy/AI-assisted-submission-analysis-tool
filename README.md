@@ -50,9 +50,9 @@ python3 app.py
 
 ## 四、使用流程
 
-### 第1步：输入API Key
+### 第1步：选择AI模型
 
-在页面顶部选择"DeepSeek API Key"并粘贴你的API Key。
+在页面顶部选择模型。
 
 ### 第2步：粘贴投稿内容
 
