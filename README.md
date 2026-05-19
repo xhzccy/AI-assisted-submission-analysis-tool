@@ -102,8 +102,8 @@ python3 -m venv python
 
 
 # 运行截图
-![封面](photo/封面.png)
 ![代码运行](photo/代码运行.png)
+![封面](photo/封面.png)
 ![运行截图](photo/运行截图.png)
 ![下载截图](photo/下载截图.png)
 ![txt](photo/txt内容截图.png)
