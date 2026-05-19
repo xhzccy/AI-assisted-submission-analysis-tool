@@ -99,3 +99,12 @@ python3 -m venv python
 运行时在powershell直接运行activate.ps1
 
 然后再进行第二步安装依赖及以后的操作
+
+
+# 运行截图
+![封面](photo/封面.png)
+![代码运行](photo/代码运行.png)
+![运行截图](photo/运行截图.png)
+![下载截图](photo/下载截图.png)
+![txt](photo/txt内容截图.png)
+![word](photo/word内容截图.png)
